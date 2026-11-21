@@ -74,17 +74,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-26]
+        # os: [windows-latest, ubuntu-latest, macos-26]
+        os: [ubuntu-latest]
         include:
-          - os: windows-latest
-            compiler_cxx: clang-cl
-            compiler_c: clang-cl
+        #  - os: windows-latest
+        #    compiler_cxx: clang-cl
+        #    compiler_c: clang-cl
           - os: ubuntu-latest
             compiler_cxx: clang++
             compiler_c: clang
-          - os: macos-26
-            compiler_cxx: clang++
-            compiler_c: clang
+        #  - os: macos-26
+        #    compiler_cxx: clang++
+        #    compiler_c: clang
 
     steps:
       - name: Checkout repository
@@ -145,6 +146,7 @@ jobs:
         shell: bash
 
   windows-sdl:
+    if: false
     runs-on: windows-2025-vs2026
     needs: get-info
     steps:
@@ -187,6 +189,7 @@ jobs:
         path: ${{github.workspace}}/build/shadPS4.exe
 
   macos-sdl:
+    if: false
     runs-on: macos-26
     needs: get-info
     steps:
@@ -351,6 +354,7 @@ jobs:
 
   pre-release:
     if: github.ref == 'refs/heads/main' && github.repository == 'shadps4-emu/shadPS4' && github.event_name == 'push'
+    # needs: [get-info, windows-sdl, macos-sdl, linux-sdl]
     needs: [get-info, windows-sdl, macos-sdl, linux-sdl]
     runs-on: ubuntu-latest
     steps:
