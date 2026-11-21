@@ -355,7 +355,7 @@ jobs:
   pre-release:
     if: github.ref == 'refs/heads/main' && github.repository == 'shadps4-emu/shadPS4' && github.event_name == 'push'
     # needs: [get-info, windows-sdl, macos-sdl, linux-sdl]
-    needs: [get-info, windows-sdl, macos-sdl, linux-sdl]
+    needs: [get-info, linux-sdl]
     runs-on: ubuntu-latest
     steps:
     - name: Download all artifacts
